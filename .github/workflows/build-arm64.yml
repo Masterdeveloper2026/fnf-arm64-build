@@ -23,7 +23,6 @@ jobs:
       - name: Setup haxelib
         run: |
           haxelib setup /tmp/haxelib
-          # Install haxelib packages
           haxelib install lime 8.2.2
           haxelib install openfl 9.4.1
           haxelib install flixel 5.8.0
@@ -33,17 +32,17 @@ jobs:
           haxelib install hscript 2.5.0
           haxelib install tjson 1.4.0
           haxelib install hxCodec 3.0.2
-          haxelib install linc_luajit 0.0.7
-          haxelib install funkin.vis
-          haxelib install grig.audio
-          haxelib install flxanimate
           haxelib install newgrounds 2.0.0
           haxelib install polymod 1.8.0
           haxelib install discord_rpc 1.0.0
+          # Git-based haxelibs
+          haxelib git funkin.vis https://github.com/FunkinCrew/funkin.vis.git 22b1ce0
+          haxelib git grig.audio https://github.com/haxe-grig/grig.audio.git cbf91e2
+          haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit.git 1906c4a
+          haxelib git flxanimate https://github.com/Dot-Stuff/flxanimate.git 768740a
 
       - name: Build
         run: |
-          cd /tmp/opencode/fnf-repo 2>/dev/null || cd $GITHUB_WORKSPACE
           haxelib run lime build Project.xml linux -D officialBuild -D HXCPP_ARM64 -release
 
       - name: Upload binary
