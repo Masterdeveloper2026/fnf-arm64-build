@@ -1,0 +1,53 @@
+name: Build FNF ARM64
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential git cmake ninja-build \
+            libgl1-mesa-dev libglu1-mesa-dev libasound2-dev \
+            libpulse-dev libudev-dev libx11-dev libxcursor-dev \
+            libxrandr-dev libxinerama-dev libxi-dev \
+            libopenal-dev libvorbis-dev libogg-dev \
+            neko haxe
+
+      - name: Setup haxelib
+        run: |
+          haxelib setup /tmp/haxelib
+          # Install haxelib packages
+          haxelib install lime 8.2.2
+          haxelib install openfl 9.4.1
+          haxelib install flixel 5.8.0
+          haxelib install flixel-addons 3.2.2
+          haxelib install flixel-ui 2.6.1
+          haxelib install hxcpp 4.3.2
+          haxelib install hscript 2.5.0
+          haxelib install tjson 1.4.0
+          haxelib install hxCodec 3.0.2
+          haxelib install linc_luajit 0.0.7
+          haxelib install funkin.vis
+          haxelib install grig.audio
+          haxelib install flxanimate
+          haxelib install newgrounds 2.0.0
+          haxelib install polymod 1.8.0
+          haxelib install discord_rpc 1.0.0
+
+      - name: Build
+        run: |
+          cd /tmp/opencode/fnf-repo 2>/dev/null || cd $GITHUB_WORKSPACE
+          haxelib run lime build Project.xml linux -D officialBuild -D HXCPP_ARM64 -release
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: PsychEngine-arm64
+          path: export/release/linux/bin/PsychEngine
