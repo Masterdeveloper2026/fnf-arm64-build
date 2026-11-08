@@ -36,10 +36,10 @@ jobs:
           haxelib install polymod 1.8.0
           haxelib install discord_rpc 1.0.0
           # Git-based haxelibs
-          haxelib git funkin.vis https://github.com/FunkinCrew/funkin.vis.git 22b1ce0
-          haxelib git grig.audio https://github.com/haxe-grig/grig.audio.git cbf91e2
-          haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit.git 1906c4a
-          haxelib git flxanimate https://github.com/Dot-Stuff/flxanimate.git 768740a
+          haxelib git funkin.vis https://github.com/FunkinCrew/funkin.vis.git
+          haxelib git grig.audio https://github.com/haxe-grig/grig.audio.git
+          haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit.git
+          haxelib git flxanimate https://github.com/Dot-Stuff/flxanimate.git
 
       - name: Build
         run: |
